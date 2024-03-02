@@ -15,9 +15,18 @@ Suggested outline for your project:"
 
 ### "Frontend" Development: 
 1.  Develop a user-friendly interface where users can input their data. (can be pretty simple for now add sick shit later)
+    1.  fraser did this yesssirrrrrrr
 2.  Utilize HTML and JavaScript(button) for frontend(and "backend" calculations) development.
+    1.  YESSSSIR FRASERRRR AYYYYYYY
 ### "Backend" Development: 
-1.  Implement the backend logic using JavaScript.  
+1.  Implement the backend logic using JavaScript. 
+    1. The Calculations of solar panel needed
+       1. Enter $ amount spent on electricy bill per year (= moneySpent)
+       2. Convert moneySpent to kWhused per year, take money spent - admin fee (constant) and then divide by how much it is to use a kW of power (kWh = (moneySpent-adminFee)/convertingFactor ), adminFee = 267.24($peryear),covertingFactor=0.15(kWh/$) ->cents
+       3. take kWhused per year and divde it by y which is how much kwh you need on roof (lol) 
+       4. take value from step 3 and divide it by how much kWh 1 solar panel gives per year then it will output how many solar panels you need to cover the kWh used (panelsNeeded = kWhUsed/panelOutput), panelOutput = 0.4 (kwh)
+       
+   
 2.  Calculate financial metrics such as payback period, monthly savings, and potential profit based on user inputs. 
    
 ---
