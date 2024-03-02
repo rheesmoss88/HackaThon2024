@@ -17,17 +17,17 @@ class UserInput {
 
 // Function to calculate monthly savings
 function calculateMonthlySavings(electricityCost, efficiency) {
-    // Implement logic to calculate monthly savings
+ 
 }
 
 // Function to calculate payback period
 function calculatePaybackPeriod(cost, monthlySavings) {
-    // Implement logic to calculate payback period
+
 }
 
 // Function to calculate number of solar panels needed
 function calculateNumberOfPanelsNeeded(electricityCost, efficiency, panelSize) {
-    // Implement logic to calculate number of panels needed
+ 
 }
 
 // Function to update the result on the HTML page with calculations finished
