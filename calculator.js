@@ -18,6 +18,8 @@ class UserInput {
 // Function to calculate monthly savings
 function calculateMonthlySavings(electricityCost, efficiency) {
     // Implement logic to calculate monthly savings
+    return 2;
+
 }
 
 // Function to calculate payback period
