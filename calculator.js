@@ -30,8 +30,9 @@ function actualCalculation() {
         document.getElementById("actualResult").innerHTML = `
             <p>Percentage of Usable Panels: ${usablePanels.toFixed(2)}%</p>
             <p>Updated Number of Panels: ${Math.floor(updatedNumberOfPanels)}</p>
-            <p>Updated Payback Period: ${updatedPaybackPeriod.toFixed(2)} years</p>
-            <p>Updated Total Installation Cost: $${updatedTotalCost.toFixed(2)} CAD</p>
+            <p>Updated Total Cost of Solar Panels: $${updatedTotalCost.toFixed(2)} CAD</p>
+            <p>Updated Payback Period for Inital Investment: ${updatedPaybackPeriod.toFixed(2)} years</p>
+            
         `;
 
         return usablePanels.toFixed(2);
@@ -116,32 +117,14 @@ function updateResult() {
         const usablePanels = actualCalculation(); // Retrieve actual calculation value
  
         let resultHTML = `
-            <p>Number of Panels Needed: ${numberOfPanelsNeeded}</p>
-            <p>Panel Surface Area Needed: ${panelArea} m<sup>2</sup></p>
-            <p>Payback Period: ${paybackPeriod}</p>
-            <p>Total Installation Cost: $${totalUserCost} CAD</p>
+            <p>Number of Panels Required: ${numberOfPanelsNeeded}</p>
+            <p>Panel Surface Area Required: ${panelArea} m<sup>2</sup></p>
+            <p>Total Cost of Solar Panels: $${totalUserCost} CAD</p>
+            <p>Payback Period for Inital Investment: ${paybackPeriod}</p>
         `;
  
-    
- 
         resultElement.innerHTML = resultHTML;
- 
-        if (roofAvailableSpace < panelArea) {
-            const updatedNumberOfPanels = Math.ceil(roofAvailableSpace / (sizeX * sizeY));
-            const updatedTotalUserCost = updatedNumberOfPanels * 414.02;
-            const updatedPaybackPeriod = updatedTotalUserCost / electricityCost;
-            const updatedPanelArea = roofAvailableSpace;
-            actualResultElement.innerHTML = `
-                <h2>Actual Results</h2>
-                <p>Number of Panels Needed: ${updatedNumberOfPanels}</p>
-                <p>Panel Surface Area Needed: ${updatedPanelArea} m<sup>2</sup></p>
-                <p>Payback Period: ${updatedPaybackPeriod} years.</p>
-                <p>Total Installation Cost: $${updatedTotalUserCost} CAD</p>
-            `;
-            actualResultElement.style.display = "block"; // Show the actual result section
-        } else {
-            actualResultElement.style.display = "none"; // Hide the actual result section if not needed
-        }
+
     }
  }
  
