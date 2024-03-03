@@ -8,9 +8,13 @@ function calculateMonthlySavings() {
 }
 
 // Function to calculate payback period
-function calculatePaybackPeriod() {
-    const cost = 414; // Cost is predefined
-    // Implement logic to calculate payback period
+function calculatePaybackPeriod() {   
+    const electricityCost = parseFloat(document.getElementById("electricityCost").value);
+    const cost = 414; // Cost is predefined for 1 solar panel
+    const totalCost = cost*calculateNumberOfPanelsNeeded(); //total cost
+    const payBackPeriod = totalCost/electricityCost; //this is the payback period
+    
+    return payBackPeriod + " years." // 
 }
 
 // Function to calculate number of solar panels needed
