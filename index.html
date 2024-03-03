@@ -113,12 +113,11 @@
         </form>
     </div>
 
-<!-- output Container -->
-    <div class="output-container"> 
+    <!-- Output Container -->
+    <div class="output-container">
         <h2>Results</h2>
         <div id="result" class="mt-4">
-            <p id="electricityCost"></p>
-            <p id="provinceOutput"></p>
+            <!-- Output will be inserted here -->
         </div>
     </div>
 </div>
@@ -128,12 +127,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="calculator.js"></script>
-
 <script>
     // JavaScript to toggle output container visibility after form submission
     document.getElementById("calculationForm").addEventListener("submit", function(event) {
         event.preventDefault();
         document.querySelector(".output-container").style.display = "block"; // Show output container
+        updateResult(); // Call updateResult function to calculate and display results
     });
 </script>
 </body>
