@@ -19,8 +19,26 @@ function actualCalculation() {
     const panelArea = parseFloat(calculatePanelArea()); // Retrieve panel area
 
     if (roofAvailableSpace < panelArea) {
-        const usablePanels = roofAvailableSpace / panelArea * 100;
+        const usablePanels = parseFloat((roofAvailableSpace / panelArea) * 100);
+        const updatedNumberOfPanels = parseInt(calculateNumberOfPanelsNeeded()) * (roofAvailableSpace / panelArea);
+        const updatedPaybackPeriod = parseFloat(calculatePaybackPeriod()) * (panelArea / roofAvailableSpace);
+        const updatedTotalCost = Math.floor(updatedNumberOfPanels)*414.02; //SOMETHING TO DO WITH FLOORING THAT TOOK US A LONG TIME
+
+        // Update Actual Results section
+        document.getElementById("actualResultsHeader").style.display = "block";
+        document.getElementById("actualResult").style.display = "block";
+        document.getElementById("actualResult").innerHTML = `
+            <p>Percentage of Usable Panels: ${usablePanels.toFixed(2)}%</p>
+            <p>Updated Number of Panels: ${Math.floor(updatedNumberOfPanels)}</p>
+            <p>Updated Payback Period: ${updatedPaybackPeriod.toFixed(2)} years</p>
+            <p>Updated Total Installation Cost: $${updatedTotalCost.toFixed(2)} CAD</p>
+        `;
+
         return usablePanels.toFixed(2);
+    } else {
+        // Hide the Actual Results section if not needed
+        document.getElementById("actualResultsHeader").style.display = "none";
+        document.getElementById("actualResult").style.display = "none";
     }
 }
 
@@ -74,42 +92,58 @@ function calculateNumberOfPanelsNeeded() {
  
 function totalCostToUser() {
     const numberOfPanels = calculateNumberOfPanelsNeeded();
-    const cost = 414; // Cost is predefined for 1 solar panel
+    const cost = 414.02; // Cost is predefined for 1 solar panel
     const totalCost = numberOfPanels * cost;
-    return totalCost;
+    return totalCost.toFixed(2);
 }
  
 // Function to update the result on the HTML page with calculations finished
 function updateResult() {
     const electricityCost = parseFloat(document.getElementById("electricityCost").value);
     const resultElement = document.getElementById("result");
-
+    const actualResultElement = document.getElementById("actualResult");
+    const roofAvailableSpace = parseFloat(document.getElementById("roofSurfaceArea").value);
+    const panelArea = parseFloat(calculatePanelArea()); // Retrieve panel area
+ 
     if (electricityCost <= 0 || isNaN(electricityCost)) {
         // Clear the result box and display "Invalid Electricity Cost"
         resultElement.innerHTML = "<p>Invalid Electricity Cost</p>";
     } else {
         // Proceed with calculations and update the result box
         const numberOfPanelsNeeded = calculateNumberOfPanelsNeeded();
-        const panelArea = calculatePanelArea();
         const paybackPeriod = calculatePaybackPeriod();
         const totalUserCost = totalCostToUser();
         const usablePanels = actualCalculation(); // Retrieve actual calculation value
-
+ 
         let resultHTML = `
             <p>Number of Panels Needed: ${numberOfPanelsNeeded}</p>
             <p>Panel Surface Area Needed: ${panelArea} m<sup>2</sup></p>
             <p>Payback Period: ${paybackPeriod}</p>
             <p>Total Installation Cost: $${totalUserCost} CAD</p>
         `;
-
-        // Check if usablePanels is valid and append it to the result
-        if (usablePanels > 0) {
-            resultHTML += `<p>Usable Panels: ${usablePanels}%</p>`;
-        }
-
+ 
+    
+ 
         resultElement.innerHTML = resultHTML;
+ 
+        if (roofAvailableSpace < panelArea) {
+            const updatedNumberOfPanels = Math.ceil(roofAvailableSpace / (sizeX * sizeY));
+            const updatedTotalUserCost = updatedNumberOfPanels * 414.02;
+            const updatedPaybackPeriod = updatedTotalUserCost / electricityCost;
+            const updatedPanelArea = roofAvailableSpace;
+            actualResultElement.innerHTML = `
+                <h2>Actual Results</h2>
+                <p>Number of Panels Needed: ${updatedNumberOfPanels}</p>
+                <p>Panel Surface Area Needed: ${updatedPanelArea} m<sup>2</sup></p>
+                <p>Payback Period: ${updatedPaybackPeriod} years.</p>
+                <p>Total Installation Cost: $${updatedTotalUserCost} CAD</p>
+            `;
+            actualResultElement.style.display = "block"; // Show the actual result section
+        } else {
+            actualResultElement.style.display = "none"; // Hide the actual result section if not needed
+        }
     }
-}
+ }
  
 // Event listener to handle form submission
 document.getElementById("calculationForm").addEventListener("submit", function(event) {
