@@ -97,7 +97,7 @@
        <h1 class="mb-1">
            Eco Energy Assessor
            <img src="images/EEA no text-01.png" alt="Logo" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;"></h1>
-           <p> Plan for a greener future: assess the impact of solar panels on your energy bill. </p>
+           <p>Plan for a greener future: assess the impact of solar panels on your energy bill.</p>
            <form id="calculationForm">
            <div class="form-group">
                <input type="number" class="form-control" id="electricityCost" required>
@@ -111,7 +111,11 @@
                    <option value="Quebec">Quebec</option>
                    <option value="Yukon">Yukon</option>
                </select>
-               <label class="form-label" for="province">Province</label>
+               <label class="form-label" for="province">Select Province</label>
+           </div>
+           <div class="form-group">
+               <input type="number" class="form-control" id="roofSurfaceArea">
+               <label class="form-label" for="roofSurfaceArea">Enter Usable Roof Surface Area (m<sup>2</sup>) [Optional]</label>
            </div>
            <button type="submit" class="btn btn-primary btn-block">Calculate</button>
        </form>

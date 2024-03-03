@@ -4,35 +4,24 @@ function calculatePanelArea() {
     const numberOfPanelsNeeded = calculateNumberOfPanelsNeeded(); // Get the number of panels needed
     const surfaceArea = numberOfPanelsNeeded * sizeX * sizeY;
     return surfaceArea.toFixed(2);
- }
+}
  
-// Function to calculate monthly savings
-function calculateMonthlySavings() {
-    const electricityCost = parseFloat(document.getElementById("electricityCost").value);
-    const efficiency = 0.4; // Efficiency is predefined
-    // Implement logic to calculate monthly savings
-    return 2;
-
-}
-
 // Function to calculate payback period
-function calculatePaybackPeriod() {   
+function calculatePaybackPeriod() {
     const electricityCost = parseFloat(document.getElementById("electricityCost").value);
-    const cost = 414; // Cost is predefined for 1 solar panel
-    const totalCost = cost*calculateNumberOfPanelsNeeded(); //total cost
-    const payBackPeriod = totalCost/electricityCost; //this is the payback period
-    
-    return payBackPeriod + " years." // 
+    const totalCost = totalCostToUser();
+    const payBackPeriod = totalCost / electricityCost; // This is the payback period
+    return payBackPeriod.toFixed(2) + " years.";
 }
-
+ 
 // Function to calculate number of solar panels needed
 function calculateNumberOfPanelsNeeded() {
     const electricityCost = parseFloat(document.getElementById("electricityCost").value);
     const province = document.getElementById("province").value;
+
     let costOfKwHours, SolarKwhPerYear, AdmFee;
- 
- 
-    switch(province) {
+
+    switch (province) {
         case "British Columbia":
             costOfKwHours = 0.15;
             SolarKwhPerYear = 1000;
@@ -59,38 +48,52 @@ function calculateNumberOfPanelsNeeded() {
             AdmFee = 0;
             break;
     }
- 
- 
+
     const kWhUsed = (electricityCost - AdmFee) / costOfKwHours;
-    if(kWhUsed > 0) { // Check if kWhUsed is greater than 0
-        const numPanels = Math.ceil( kWhUsed / (SolarKwhPerYear * 0.4)); // Assuming efficiency is 40%
+    if (kWhUsed > 0) {
+        const numPanels = Math.ceil(kWhUsed / (SolarKwhPerYear * 0.4));
         return numPanels;
     } else {
-        return 0; // Return 0 panels if kWhUsed is not positive
+        return 0;
     }
- }
+}
+
  
+function totalCostToUser() {
+    const roofAvailableSpace = parseFloat(document.getElementById("roofSurfaceArea").value) || 0;
+    const numberOfPanels = calculateNumberOfPanelsNeeded();
+    const cost = 414; // Cost is predefined for 1 solar panel
+    const totalCost = numberOfPanels * cost;
+    return totalCost;
+}
  
- // Function to update the result on the HTML page with calculations finished
- function updateResult() {
-    const numberOfPanelsNeeded = calculateNumberOfPanelsNeeded();
-    const panelArea = calculatePanelArea();
-    const paybackPeriod = calculatePaybackPeriod();
- 
- 
+// Function to update the result on the HTML page with calculations finished
+function updateResult() {
+    const electricityCost = parseFloat(document.getElementById("electricityCost").value);
     const resultElement = document.getElementById("result");
-    resultElement.innerHTML = `
-        <p>Number of Panels Needed: ${numberOfPanelsNeeded}</p>
-        <p>Panel Surface Area Needed: ${panelArea} m<sup>2</sup></p>
-        <p>Payback Period: ${paybackPeriod}</p>
-    `;
- }
+
+    if (electricityCost <= 0 || isNaN(electricityCost)) {
+        // Clear the result box and display "Invalid Electricity Cost"
+        resultElement.innerHTML = "<p>Invalid Electricity Cost</p>";
+    } else {
+        // Proceed with calculations and update the result box
+        const numberOfPanelsNeeded = calculateNumberOfPanelsNeeded();
+        const panelArea = calculatePanelArea();
+        const paybackPeriod = calculatePaybackPeriod();
+        const totalUserCost = totalCostToUser();
+
+        resultElement.innerHTML = `
+            <p>Number of Panels Needed: ${numberOfPanelsNeeded}</p>
+            <p>Panel Surface Area Needed: ${panelArea} m<sup>2</sup></p>
+            <p>Payback Period: ${paybackPeriod}</p>
+            <p>Total Installation Cost: $${totalUserCost} CAD</p>
+        `;
+    }
+}
  
- 
- // Event listener to handle form submission
- document.getElementById("calculationForm").addEventListener("submit", function(event) {
+// Event listener to handle form submission
+document.getElementById("calculationForm").addEventListener("submit", function(event) {
     event.preventDefault();
     // Update the result based on user input and predefined data
     updateResult();
- });
- 
+});
