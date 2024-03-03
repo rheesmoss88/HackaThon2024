@@ -13,6 +13,19 @@ function calculatePaybackPeriod() {
     const payBackPeriod = totalCost / electricityCost; // This is the payback period
     return payBackPeriod.toFixed(2) + " years.";
 }
+
+function actualCalculation() {
+    const roofAvailableSpace = parseFloat(document.getElementById("roofSurfaceArea").value);
+    const panelArea = parseFloat(calculatePanelArea()); // Retrieve panel area
+
+    if (roofAvailableSpace < panelArea) {
+        const usablePanels = roofAvailableSpace / panelArea * 100;
+        return usablePanels.toFixed(2);
+    }
+}
+
+
+
  
 // Function to calculate number of solar panels needed
 function calculateNumberOfPanelsNeeded() {
@@ -60,7 +73,6 @@ function calculateNumberOfPanelsNeeded() {
 
  
 function totalCostToUser() {
-    const roofAvailableSpace = parseFloat(document.getElementById("roofSurfaceArea").value) || 0;
     const numberOfPanels = calculateNumberOfPanelsNeeded();
     const cost = 414; // Cost is predefined for 1 solar panel
     const totalCost = numberOfPanels * cost;
@@ -81,13 +93,21 @@ function updateResult() {
         const panelArea = calculatePanelArea();
         const paybackPeriod = calculatePaybackPeriod();
         const totalUserCost = totalCostToUser();
+        const usablePanels = actualCalculation(); // Retrieve actual calculation value
 
-        resultElement.innerHTML = `
+        let resultHTML = `
             <p>Number of Panels Needed: ${numberOfPanelsNeeded}</p>
             <p>Panel Surface Area Needed: ${panelArea} m<sup>2</sup></p>
             <p>Payback Period: ${paybackPeriod}</p>
             <p>Total Installation Cost: $${totalUserCost} CAD</p>
         `;
+
+        // Check if usablePanels is valid and append it to the result
+        if (usablePanels > 0) {
+            resultHTML += `<p>Usable Panels: ${usablePanels}%</p>`;
+        }
+
+        resultElement.innerHTML = resultHTML;
     }
 }
  
