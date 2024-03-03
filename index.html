@@ -1,129 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco Energy Assessor</title>
-    <!-- Include Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom CSS */
-        body {
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            padding: 50px;
-            max-width: 1000px;
-            margin: auto;
-        }
-        #logo-container {
-            text-align: right;
-            margin-bottom: 20px;
-        }
-        #logo-container img {
-            max-height: 100px;
-            max-width: 100%;
-        }
-        .input-container,
-        .output-container {
-            border: 2px solid #007bff; /* Light blue border */
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background-color: #f8f9fa; /* Light blue background */
-        }
-        .form-group {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-        .form-control {
-            background-color: #f0f0f0; /* Lighter blue background */
-            border: none;
-            border-bottom: 2px solid #f68c1e; /* Orange border bottom */
-            border-radius: 0;
-            outline: none;
-            box-shadow: none;
-            transition: border-color 0.3s, background-color 0.3s;
-        }
-        .form-control:focus {
-            border-color: #f68c1e; /* Orange border color on focus */
-            box-shadow: none;
-        }
-        .form-control:focus + .form-label,
-        .form-control:not(:placeholder-shown) + .form-label {
-            color: #f68c1e; /* Orange label color when focused or value is entered */
-            transform: translateY(-25px);
-            font-size: 0.8rem;
-        }
-        .form-label {
-            position: absolute;
-            left: 0;
-            top: 10px;
-            color: #6c757d; /* Placeholder color */
-            transition: all 0.3s;
-            pointer-events: none;
-        }
-        .btn-primary {
-            background-color: #f68c1e; /* Orange button color */
-            border: none;
-            border-radius: 20px;
-            padding: 10px 20px;
-            transition: background-color 0.3s;
-        }
-        .btn-primary:hover {
-            background-color: #dd7216; /* Darker orange color on hover */
-        }
-        .output-container {
-            display: none; /* Hide output by default */
-        }
-        #result {
-            margin-top: 20px;
-        }
-    </style>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Eco Energy Assessor</title>
+   <!-- Include Bootstrap CSS -->
+   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+   <style>
+       /* Custom CSS */
+       body {
+           background-color: #f8f9fa;
+           margin: 0;
+           padding: 0;
+       }
+       .container {
+           padding: 50px;
+           max-width: 1000px;
+           margin: auto;
+       }
+       #logo-container {
+           text-align: right;
+           margin-bottom: 20px;
+       }
+       #logo-container img {
+           max-height: 100px;
+           max-width: 100%;
+       }
+       .input-container,
+       .output-container {
+           border: 2px solid #007bff; /* Light blue border */
+           border-radius: 5px;
+           padding: 20px;
+           margin-bottom: 20px;
+           background-color: #f8f9fa; /* Light blue background */
+       }
+       .form-group {
+           position: relative;
+           margin-bottom: 1.5rem;
+       }
+       .form-control {
+           background-color: #f0f0f0; /* Lighter blue background */
+           border: none;
+           border-bottom: 2px solid #f68c1e; /* Orange border bottom */
+           border-radius: 0;
+           outline: none;
+           box-shadow: none;
+           transition: border-color 0.3s, background-color 0.3s;
+       }
+       .form-control:focus {
+           border-color: #f68c1e; /* Orange border color on focus */
+           box-shadow: none;
+       }
+       .form-control:focus + .form-label,
+       .form-control:not(:placeholder-shown) + .form-label {
+           color: #f68c1e; /* Orange label color when focused or value is entered */
+           transform: translateY(-25px);
+           font-size: 0.8rem;
+       }
+       .form-label {
+           position: absolute;
+           left: 0;
+           top: 10px;
+           color: #6c757d; /* Placeholder color */
+           transition: all 0.3s;
+           pointer-events: none;
+       }
+       .btn-primary {
+           background-color: #f68c1e; /* Orange button color */
+           border: none;
+           border-radius: 20px;
+           padding: 10px 20px;
+           transition: background-color 0.3s;
+       }
+       .btn-primary:hover {
+           background-color: #dd7216; /* Darker orange color on hover */
+       }
+       .output-container {
+           display: none; /* Hide output by default */
+       }
+       #result {
+           margin-top: 20px;
+       }
+   </style>
 </head>
 <body>
 <div class="container">
-    <!-- Logo Container -->
-    <div id="logo-container">
-        <!-- Placeholder for company logo image -->
-        <!-- <img src="company_logo.png" alt="Company Logo"> -->
-    </div>
-    
-    <!-- Input Container -->
-    <div class="input-container">
-        <h1 class="mb-1">
-            Eco Energy Assessor 
-            <img src="images/EEA no text-01.png" alt="Logo" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;"></h1>
-            <p> Plan for a greener future: assess the impact of solar panels on your energy bill. </p>
-            <form id="calculationForm">
-            <div class="form-group">
-                <input type="number" class="form-control" id="electricityCost" required>
-                <label class="form-label" for="electricityCost">Enter Yearly Electricity Cost ($)</label>
-            </div>
-            <div class="form-group">
-                <select class="form-control" id="province" required>
-                    <option value="" disabled selected>Select Province</option>
-                    <option value="Alberta">Alberta</option>
-                    <option value="British Columbia">British Columbia</option>
-                    <option value="Quebec">Quebec</option>
-                    <option value="Yukon">Yukon</option>
-                </select>
-                <label class="form-label" for="province">Province</label>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Calculate</button>
-        </form>
-    </div>
 
-    <!-- Output Container -->
-    <div class="output-container">
-        <h2>Results</h2>
-        <div id="result" class="mt-4">
-            <!-- Output will be inserted here -->
-        </div>
-    </div>
+   <!-- Logo Container -->
+   <div id="logo-container">
+       <!-- Placeholder for company logo image -->
+       <!-- <img src="company_logo.png" alt="Company Logo"> -->
+   </div>
+  
+   <!-- Input Container -->
+   <div class="input-container">
+       <h1 class="mb-1">
+           Eco Energy Assessor
+           <img src="images/EEA no text-01.png" alt="Logo" style="width: 40px; height: 40px; vertical-align: middle; margin-right: 10px;"></h1>
+           <p> Plan for a greener future: assess the impact of solar panels on your energy bill. </p>
+           <form id="calculationForm">
+           <div class="form-group">
+               <input type="number" class="form-control" id="electricityCost" required>
+               <label class="form-label" for="electricityCost">Enter Yearly Electricity Cost ($)</label>
+           </div>
+           <div class="form-group">
+               <select class="form-control" id="province" required>
+                   <option value="" disabled selected>Select Province</option>
+                   <option value="Alberta">Alberta</option>
+                   <option value="British Columbia">British Columbia</option>
+                   <option value="Quebec">Quebec</option>
+                   <option value="Yukon">Yukon</option>
+               </select>
+               <label class="form-label" for="province">Province</label>
+           </div>
+           <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+       </form>
+   </div>
+
+   <!-- Output Container -->
+   <div class="output-container">
+       <h2>Results</h2>
+       <div id="result" class="mt-4">
+           <!-- Output will be inserted here -->
+       </div>
+   </div>
 </div>
+
 
 <!-- Include Bootstrap JS and your custom JavaScript file -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
@@ -131,12 +133,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="calculator.js"></script>
 <script>
-    // JavaScript to toggle output container visibility after form submission
-    document.getElementById("calculationForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        document.querySelector(".output-container").style.display = "block"; // Show output container
-        updateResult(); // Call updateResult function to calculate and display results
-    });
+   // JavaScript to toggle output container visibility after form submission
+   document.getElementById("calculationForm").addEventListener("submit", function(event) {
+       event.preventDefault();
+       document.querySelector(".output-container").style.display = "block"; // Show output container
+       updateResult(); // Call updateResult function to calculate and display results
+   });
 </script>
 </body>
 </html>
