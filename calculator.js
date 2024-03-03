@@ -2,22 +2,31 @@ function calculatePanelArea() {
     const sizeX = 2.0066;
     const sizeY = 0.9906;
     const numberOfPanelsNeeded = calculateNumberOfPanelsNeeded(); // Get the number of panels needed
- 
- 
     const surfaceArea = numberOfPanelsNeeded * sizeX * sizeY;
     return surfaceArea.toFixed(2);
  }
  
- 
- // Function to calculate payback period
- function calculatePaybackPeriod() {
-    const cost = 414; // Cost is predefined
-    // Implement logic to calculate payback period
- }
- 
- 
- // Function to calculate number of solar panels needed
- function calculateNumberOfPanelsNeeded() {
+// Function to calculate monthly savings
+function calculateMonthlySavings() {
+    const electricityCost = parseFloat(document.getElementById("electricityCost").value);
+    const efficiency = 0.4; // Efficiency is predefined
+    // Implement logic to calculate monthly savings
+    return 2;
+
+}
+
+// Function to calculate payback period
+function calculatePaybackPeriod() {   
+    const electricityCost = parseFloat(document.getElementById("electricityCost").value);
+    const cost = 414; // Cost is predefined for 1 solar panel
+    const totalCost = cost*calculateNumberOfPanelsNeeded(); //total cost
+    const payBackPeriod = totalCost/electricityCost; //this is the payback period
+    
+    return payBackPeriod + " years." // 
+}
+
+// Function to calculate number of solar panels needed
+function calculateNumberOfPanelsNeeded() {
     const electricityCost = parseFloat(document.getElementById("electricityCost").value);
     const province = document.getElementById("province").value;
     let costOfKwHours, SolarKwhPerYear, AdmFee;
